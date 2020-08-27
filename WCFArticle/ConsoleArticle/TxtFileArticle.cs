@@ -19,7 +19,7 @@ namespace ConsoleArticle
             double price;
             do
             {
-                Console.Write("Article name -> ");
+                Console.Write("\nArticle name -> ");
                 string input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input))
                 {
@@ -78,6 +78,80 @@ namespace ConsoleArticle
             using (Service1Client proxy = new Service1Client())
             {
                 proxy.AddArticleToFile(article);
+            }
+        }
+        // Method to show all articles to console form text file
+        public void ShowAllArticles()
+        {
+            using (Service1Client proxy = new Service1Client())
+            {
+                var listOfArticles = proxy.GetAllFileArticles();
+                Console.WriteLine("\nList of articles from txt file: \n");
+                int i = 0;
+                foreach (var item in listOfArticles)
+                {
+                    Console.WriteLine("[{0}] {1}; {2}; {3:N2}", i++, item.Name, item.Quantity, item.Price);
+                }
+            }
+        }
+        // Method for modify the article price
+        public void PriceModify()
+        {
+            using (Service1Client proxy = new Service1Client())
+            {
+                var listOfArticles = proxy.GetAllFileArticles();
+                ShowAllArticles();
+                bool repeat;
+                uint choosenNo = 0;
+                double newPrice;
+                do
+                {
+                    Console.Write("\nEnter the number of article you want to change the price -> ");
+                    string input = Console.ReadLine();
+                    if (string.IsNullOrEmpty(input))
+                    {
+                        Console.WriteLine("\nYou must provide some input!");
+                        repeat = true;
+                    }
+                    else if (!UInt32.TryParse(input, out choosenNo))
+                    {
+                        Console.WriteLine("\nRead instructions!!!!");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        choosenNo = UInt32.Parse(input);
+                        if (choosenNo > listOfArticles.Count() || choosenNo < 0)
+                        {
+                            Console.WriteLine("\nRead instructions!!!!");
+                            repeat = true;
+                        }
+                        else
+                        {
+                            repeat = false;
+                        }
+                    }
+                } while (repeat);
+                {
+                    Console.Write("\nNew price -> ");
+                    string input = Console.ReadLine();
+                    if (string.IsNullOrEmpty(input))
+                    {
+                        Console.WriteLine("\nYou must provide some input!");
+                        repeat = true;
+                    }
+                    else if (!Double.TryParse(input, out newPrice))
+                    {
+                        Console.WriteLine("\nRead instructions!!!!");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        newPrice = Double.Parse(input);
+                        proxy.ModifyPrice(listOfArticles.ElementAt((int)choosenNo), newPrice);
+                        repeat = false;
+                    }
+                } while (repeat);
             }
         }
     }

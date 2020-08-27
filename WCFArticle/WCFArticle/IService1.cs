@@ -24,6 +24,9 @@ namespace WCFArticle
 
         [OperationContract]
         void AddArticleToFile(FileArticle article);
+
+        [OperationContract]
+        void ModifyPrice(FileArticle article, double newPrice);
     }
 
 

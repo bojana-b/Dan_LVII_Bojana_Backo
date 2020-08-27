@@ -21,7 +21,7 @@ namespace WCFArticle
             return string.Format("You entered: {0}", value);
         }
         // Function that add one article to Articles.txt file
-        void IService1.AddArticleToFile(FileArticle article)
+        public void AddArticleToFile(FileArticle article)
         {
             if (!File.Exists(fileArticles))
             {
@@ -45,7 +45,7 @@ namespace WCFArticle
         }
 
         // Function that read all articles from Articles.txt file
-        List<FileArticle> IService1.GetAllFileArticles()
+        public List<FileArticle> GetAllFileArticles()
         {
             List<FileArticle> listOfArticles = new List<FileArticle>();
             if (!File.Exists(fileArticles))
@@ -82,6 +82,24 @@ namespace WCFArticle
             {
                 Debug.WriteLine($"The file could not be opened: '{e}'");
                 return null;
+            }
+        }
+
+        // Function that modify article price
+        public void ModifyPrice(FileArticle article, double newPrice)
+        {
+            List<FileArticle> articles = GetAllFileArticles();
+            for (int i = 0; i < articles.Count; i++)
+            {
+                if (articles.ElementAt(i).Name == article.Name)
+                {
+                    articles.ElementAt(i).Price = newPrice;
+                }
+            }
+            File.Delete(fileArticles);
+            foreach (var item in articles)
+            {
+                AddArticleToFile(item);
             }
         }
 

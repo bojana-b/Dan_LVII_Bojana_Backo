@@ -178,6 +178,12 @@ namespace ConsoleArticle.ServiceReferenceArticle {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddArticleToFile", ReplyAction="http://tempuri.org/IService1/AddArticleToFileResponse")]
         System.Threading.Tasks.Task AddArticleToFileAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle article);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ModifyPrice", ReplyAction="http://tempuri.org/IService1/ModifyPriceResponse")]
+        void ModifyPrice(ConsoleArticle.ServiceReferenceArticle.FileArticle article, double newPrice);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ModifyPrice", ReplyAction="http://tempuri.org/IService1/ModifyPriceResponse")]
+        System.Threading.Tasks.Task ModifyPriceAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle article, double newPrice);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -237,6 +243,14 @@ namespace ConsoleArticle.ServiceReferenceArticle {
         
         public System.Threading.Tasks.Task AddArticleToFileAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle article) {
             return base.Channel.AddArticleToFileAsync(article);
+        }
+        
+        public void ModifyPrice(ConsoleArticle.ServiceReferenceArticle.FileArticle article, double newPrice) {
+            base.Channel.ModifyPrice(article, newPrice);
+        }
+        
+        public System.Threading.Tasks.Task ModifyPriceAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle article, double newPrice) {
+            return base.Channel.ModifyPriceAsync(article, newPrice);
         }
     }
 }
