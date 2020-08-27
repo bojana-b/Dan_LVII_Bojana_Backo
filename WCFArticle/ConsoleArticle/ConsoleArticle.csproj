@@ -52,10 +52,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TxtFileArticle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Connected Services\ServiceReferenceArticle\ConsoleArticle.ServiceReferenceArticle.CompositeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReferenceArticle\ConsoleArticle.ServiceReferenceArticle.FileArticle.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServiceReferenceArticle\Service1.wsdl" />
@@ -68,9 +72,16 @@
     <None Include="Connected Services\ServiceReferenceArticle\Service12.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\DataSources\WCFArticle.CompositeType.datasource" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WCFArticle\WCFArticle.csproj">
+      <Project>{C0F1EED2-DB95-4FEE-B6E8-BAEF8F66121D}</Project>
+      <Name>WCFArticle</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ServiceReferenceArticle\" />

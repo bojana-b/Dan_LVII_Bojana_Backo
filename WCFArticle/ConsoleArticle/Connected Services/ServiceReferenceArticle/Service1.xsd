@@ -7,4 +7,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CompositeType" nillable="true" type="tns:CompositeType" />
+  <xs:complexType name="ArrayOfFileArticle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FileArticle" nillable="true" type="tns:FileArticle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFileArticle" nillable="true" type="tns:ArrayOfFileArticle" />
+  <xs:complexType name="FileArticle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Price" type="xs:double" />
+      <xs:element minOccurs="0" name="Quantity" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FileArticle" nillable="true" type="tns:FileArticle" />
 </xs:schema>

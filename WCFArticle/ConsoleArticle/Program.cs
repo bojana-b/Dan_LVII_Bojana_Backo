@@ -10,6 +10,9 @@ namespace ConsoleArticle
     {
         static void Main(string[] args)
         {
+            TxtFileArticle start = new TxtFileArticle();
+            start.CreateArticle();
+            Console.ReadKey();
         }
     }
 }

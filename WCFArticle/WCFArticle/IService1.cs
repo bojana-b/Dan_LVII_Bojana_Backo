@@ -19,7 +19,11 @@ namespace WCFArticle
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
-        // TODO: Add your service operations here
+        [OperationContract]
+        List<FileArticle> GetAllFileArticles();
+
+        [OperationContract]
+        void AddArticleToFile(FileArticle article);
     }
 
 

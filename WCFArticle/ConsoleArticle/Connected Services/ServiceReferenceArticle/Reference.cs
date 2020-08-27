@@ -74,6 +74,83 @@ namespace ConsoleArticle.ServiceReferenceArticle {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FileArticle", Namespace="http://schemas.datacontract.org/2004/07/WCFArticle")]
+    [System.SerializableAttribute()]
+    public partial class FileArticle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double PriceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int QuantityField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Price {
+            get {
+                return this.PriceField;
+            }
+            set {
+                if ((this.PriceField.Equals(value) != true)) {
+                    this.PriceField = value;
+                    this.RaisePropertyChanged("Price");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Quantity {
+            get {
+                return this.QuantityField;
+            }
+            set {
+                if ((this.QuantityField.Equals(value) != true)) {
+                    this.QuantityField = value;
+                    this.RaisePropertyChanged("Quantity");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReferenceArticle.IService1")]
     public interface IService1 {
@@ -89,6 +166,18 @@ namespace ConsoleArticle.ServiceReferenceArticle {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
         System.Threading.Tasks.Task<ConsoleArticle.ServiceReferenceArticle.CompositeType> GetDataUsingDataContractAsync(ConsoleArticle.ServiceReferenceArticle.CompositeType composite);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllFileArticles", ReplyAction="http://tempuri.org/IService1/GetAllFileArticlesResponse")]
+        ConsoleArticle.ServiceReferenceArticle.FileArticle[] GetAllFileArticles();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllFileArticles", ReplyAction="http://tempuri.org/IService1/GetAllFileArticlesResponse")]
+        System.Threading.Tasks.Task<ConsoleArticle.ServiceReferenceArticle.FileArticle[]> GetAllFileArticlesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddArticleToFile", ReplyAction="http://tempuri.org/IService1/AddArticleToFileResponse")]
+        void AddArticleToFile(ConsoleArticle.ServiceReferenceArticle.FileArticle article);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddArticleToFile", ReplyAction="http://tempuri.org/IService1/AddArticleToFileResponse")]
+        System.Threading.Tasks.Task AddArticleToFileAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle article);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -132,6 +221,22 @@ namespace ConsoleArticle.ServiceReferenceArticle {
         
         public System.Threading.Tasks.Task<ConsoleArticle.ServiceReferenceArticle.CompositeType> GetDataUsingDataContractAsync(ConsoleArticle.ServiceReferenceArticle.CompositeType composite) {
             return base.Channel.GetDataUsingDataContractAsync(composite);
+        }
+        
+        public ConsoleArticle.ServiceReferenceArticle.FileArticle[] GetAllFileArticles() {
+            return base.Channel.GetAllFileArticles();
+        }
+        
+        public System.Threading.Tasks.Task<ConsoleArticle.ServiceReferenceArticle.FileArticle[]> GetAllFileArticlesAsync() {
+            return base.Channel.GetAllFileArticlesAsync();
+        }
+        
+        public void AddArticleToFile(ConsoleArticle.ServiceReferenceArticle.FileArticle article) {
+            base.Channel.AddArticleToFile(article);
+        }
+        
+        public System.Threading.Tasks.Task AddArticleToFileAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle article) {
+            return base.Channel.AddArticleToFileAsync(article);
         }
     }
 }
