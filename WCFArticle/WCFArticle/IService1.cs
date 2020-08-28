@@ -26,7 +26,13 @@ namespace WCFArticle
         void AddArticleToFile(FileArticle article);
 
         [OperationContract]
+        void AddAllArticlesToFile(List<FileArticle> list);
+
+        [OperationContract]
         void ModifyPrice(FileArticle article, double newPrice);
+
+        [OperationContract]
+        void CreateABill(List<FileArticle> list);
     }
 
 

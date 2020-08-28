@@ -154,5 +154,73 @@ namespace ConsoleArticle
                 } while (repeat);
             }
         }
+        // Method for bill creation
+        public void BillCreation()
+        {
+            using (Service1Client proxy = new Service1Client())
+            {
+                List<ServiceReferenceArticle.FileArticle> listForBill = new List<ServiceReferenceArticle.FileArticle>();
+                ServiceReferenceArticle.FileArticle article = new ServiceReferenceArticle.FileArticle();
+                var listOfArticles = proxy.GetAllFileArticles();
+                ShowAllArticles();
+                bool repeat;
+                uint choosenNo = 0;
+                uint quantity;
+                do
+                {
+                    Console.Write("\nEnter the number of article you want to buy -> ");
+                    string input = Console.ReadLine();
+                    if (string.IsNullOrEmpty(input))
+                    {
+                        Console.WriteLine("\nYou must provide some input!");
+                        repeat = true;
+                    }
+                    else if (!UInt32.TryParse(input, out choosenNo))
+                    {
+                        Console.WriteLine("\nRead instructions!!!!");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        choosenNo = UInt32.Parse(input);
+                        if (choosenNo > listOfArticles.Count() || choosenNo < 0)
+                        {
+                            Console.WriteLine("\nRead instructions!!!!");
+                            repeat = true;
+                        }
+                        else
+                        {
+                            article.Name = listOfArticles.ElementAt((int)choosenNo).Name;
+                            repeat = false;
+                        }
+                    }
+                } while (repeat);
+                {
+                    Console.Write("\nQuantity -> ");
+                    string input = Console.ReadLine();
+                    if (string.IsNullOrEmpty(input))
+                    {
+                        Console.WriteLine("\nYou must provide some input!");
+                        repeat = true;
+                    }
+                    else if (!UInt32.TryParse(input, out quantity))
+                    {
+                        Console.WriteLine("\nRead instructions!!!!");
+                        repeat = true;
+                    }
+                    else
+                    {
+                        quantity = UInt32.Parse(input);
+                        article.Quantity = (int)quantity;
+                        listOfArticles.ElementAt((int)choosenNo).Quantity -= (int)quantity;
+                        article.Price = listOfArticles.ElementAt((int)choosenNo).Price;
+                        repeat = false;
+                    }
+                } while (repeat);
+                listForBill.Add(article);
+                proxy.CreateABill(listForBill.ToArray());
+                proxy.AddAllArticlesToFile(listOfArticles);
+            }
+        }
     }
 }

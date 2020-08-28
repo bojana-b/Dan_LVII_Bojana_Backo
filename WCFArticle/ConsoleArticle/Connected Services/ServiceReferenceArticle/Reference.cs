@@ -179,11 +179,23 @@ namespace ConsoleArticle.ServiceReferenceArticle {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddArticleToFile", ReplyAction="http://tempuri.org/IService1/AddArticleToFileResponse")]
         System.Threading.Tasks.Task AddArticleToFileAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle article);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddAllArticlesToFile", ReplyAction="http://tempuri.org/IService1/AddAllArticlesToFileResponse")]
+        void AddAllArticlesToFile(ConsoleArticle.ServiceReferenceArticle.FileArticle[] list);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddAllArticlesToFile", ReplyAction="http://tempuri.org/IService1/AddAllArticlesToFileResponse")]
+        System.Threading.Tasks.Task AddAllArticlesToFileAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle[] list);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ModifyPrice", ReplyAction="http://tempuri.org/IService1/ModifyPriceResponse")]
         void ModifyPrice(ConsoleArticle.ServiceReferenceArticle.FileArticle article, double newPrice);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ModifyPrice", ReplyAction="http://tempuri.org/IService1/ModifyPriceResponse")]
         System.Threading.Tasks.Task ModifyPriceAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle article, double newPrice);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateABill", ReplyAction="http://tempuri.org/IService1/CreateABillResponse")]
+        void CreateABill(ConsoleArticle.ServiceReferenceArticle.FileArticle[] list);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateABill", ReplyAction="http://tempuri.org/IService1/CreateABillResponse")]
+        System.Threading.Tasks.Task CreateABillAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle[] list);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -245,12 +257,28 @@ namespace ConsoleArticle.ServiceReferenceArticle {
             return base.Channel.AddArticleToFileAsync(article);
         }
         
+        public void AddAllArticlesToFile(ConsoleArticle.ServiceReferenceArticle.FileArticle[] list) {
+            base.Channel.AddAllArticlesToFile(list);
+        }
+        
+        public System.Threading.Tasks.Task AddAllArticlesToFileAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle[] list) {
+            return base.Channel.AddAllArticlesToFileAsync(list);
+        }
+        
         public void ModifyPrice(ConsoleArticle.ServiceReferenceArticle.FileArticle article, double newPrice) {
             base.Channel.ModifyPrice(article, newPrice);
         }
         
         public System.Threading.Tasks.Task ModifyPriceAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle article, double newPrice) {
             return base.Channel.ModifyPriceAsync(article, newPrice);
+        }
+        
+        public void CreateABill(ConsoleArticle.ServiceReferenceArticle.FileArticle[] list) {
+            base.Channel.CreateABill(list);
+        }
+        
+        public System.Threading.Tasks.Task CreateABillAsync(ConsoleArticle.ServiceReferenceArticle.FileArticle[] list) {
+            return base.Channel.CreateABillAsync(list);
         }
     }
 }

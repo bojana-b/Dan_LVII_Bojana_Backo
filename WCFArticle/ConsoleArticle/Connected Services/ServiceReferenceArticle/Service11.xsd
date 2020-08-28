@@ -53,15 +53,39 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="AddAllArticlesToFile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WCFArticle" minOccurs="0" name="list" nillable="true" type="q5:ArrayOfFileArticle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAllArticlesToFileResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ModifyPrice">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WCFArticle" minOccurs="0" name="article" nillable="true" type="q5:FileArticle" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/WCFArticle" minOccurs="0" name="article" nillable="true" type="q6:FileArticle" />
         <xs:element minOccurs="0" name="newPrice" type="xs:double" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ModifyPriceResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateABill">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/WCFArticle" minOccurs="0" name="list" nillable="true" type="q7:ArrayOfFileArticle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateABillResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

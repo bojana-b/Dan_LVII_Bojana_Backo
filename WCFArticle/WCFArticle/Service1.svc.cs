@@ -15,6 +15,7 @@ namespace WCFArticle
     public class Service1 : IService1
     {
         private readonly string fileArticles = AppDomain.CurrentDomain.BaseDirectory + @"\Articles.txt";
+        public static int counterBill;
 
         public string GetData(int value)
         {
@@ -103,6 +104,46 @@ namespace WCFArticle
             }
         }
 
+        // Function that create a bill, another txt file
+        public void CreateABill(List<FileArticle> list)
+        {
+            double bill = 0;
+            string FileBill = AppDomain.CurrentDomain.BaseDirectory + @"\Bill_" + counterBill + "_TimeStamp.txt";
+            if (!File.Exists(FileBill))
+            {
+                File.Create(FileBill).Close();
+            }
+            try
+            {
+                using (StreamWriter sw = File.AppendText(FileBill))
+                {
+                    sw.WriteLine(DateTime.Now);
+                    foreach (var item in list)
+                    {
+                        sw.WriteLine("{0} - {1:N2}", item.Name, ((double)item.Quantity * item.Price));
+                        bill += (double)item.Quantity * item.Price;
+                    }
+                    sw.WriteLine(bill);
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Debug.WriteLine($"The file was not found: '{e}'");
+            }
+            catch (IOException e)
+            {
+                Debug.WriteLine($"The file could not be opened: '{e}'");
+            }
+        }
+        // Function that add list of articles to file
+        public void AddAllArticlesToFile(List<FileArticle> list)
+        {
+            File.Delete(fileArticles);
+            foreach (var item in list)
+            {
+                AddArticleToFile(item);
+            }
+        }
         //
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
