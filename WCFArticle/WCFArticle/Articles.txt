@@ -1,2 +1,3 @@
-Secer; 9; 99.02
-Mleko; 2; 115.09
+Secer; 11; 99.02
+Mleko; 8; 115.09
+Brasno; 9; 49

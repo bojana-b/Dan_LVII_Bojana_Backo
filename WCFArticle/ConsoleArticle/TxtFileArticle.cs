@@ -160,66 +160,91 @@ namespace ConsoleArticle
             using (Service1Client proxy = new Service1Client())
             {
                 List<ServiceReferenceArticle.FileArticle> listForBill = new List<ServiceReferenceArticle.FileArticle>();
-                ServiceReferenceArticle.FileArticle article = new ServiceReferenceArticle.FileArticle();
                 var listOfArticles = proxy.GetAllFileArticles();
                 ShowAllArticles();
                 bool repeat;
+                bool end = true;
                 uint choosenNo = 0;
                 uint quantity;
                 do
                 {
-                    Console.Write("\nEnter the number of article you want to buy -> ");
-                    string input = Console.ReadLine();
-                    if (string.IsNullOrEmpty(input))
+                    ServiceReferenceArticle.FileArticle article = new ServiceReferenceArticle.FileArticle();
+                    do
                     {
-                        Console.WriteLine("\nYou must provide some input!");
-                        repeat = true;
-                    }
-                    else if (!UInt32.TryParse(input, out choosenNo))
-                    {
-                        Console.WriteLine("\nRead instructions!!!!");
-                        repeat = true;
-                    }
-                    else
-                    {
-                        choosenNo = UInt32.Parse(input);
-                        if (choosenNo > listOfArticles.Count() || choosenNo < 0)
+                        Console.Write("\nEnter the number of article you want to buy -> ");
+                        string input = Console.ReadLine();
+                        if (string.IsNullOrEmpty(input))
+                        {
+                            Console.WriteLine("\nYou must provide some input!");
+                            repeat = true;
+                        }
+                        else if (!UInt32.TryParse(input, out choosenNo))
                         {
                             Console.WriteLine("\nRead instructions!!!!");
                             repeat = true;
                         }
                         else
                         {
-                            article.Name = listOfArticles.ElementAt((int)choosenNo).Name;
-                            repeat = false;
+                            choosenNo = UInt32.Parse(input);
+                            if (choosenNo > listOfArticles.Count() || choosenNo < 0)
+                            {
+                                Console.WriteLine("\nRead instructions!!!!");
+                                repeat = true;
+                            }
+                            else
+                            {
+                                article.Name = listOfArticles.ElementAt((int)choosenNo).Name;
+                                repeat = false;
+                            }
                         }
-                    }
-                } while (repeat);
-                {
-                    Console.Write("\nQuantity -> ");
-                    string input = Console.ReadLine();
-                    if (string.IsNullOrEmpty(input))
+                    } while (repeat);
                     {
-                        Console.WriteLine("\nYou must provide some input!");
-                        repeat = true;
-                    }
-                    else if (!UInt32.TryParse(input, out quantity))
-                    {
-                        Console.WriteLine("\nRead instructions!!!!");
-                        repeat = true;
-                    }
-                    else
-                    {
-                        quantity = UInt32.Parse(input);
-                        article.Quantity = (int)quantity;
-                        listOfArticles.ElementAt((int)choosenNo).Quantity -= (int)quantity;
-                        article.Price = listOfArticles.ElementAt((int)choosenNo).Price;
-                        repeat = false;
-                    }
-                } while (repeat);
-                listForBill.Add(article);
+                        Console.Write("\nQuantity -> ");
+                        string input = Console.ReadLine();
+                        if (string.IsNullOrEmpty(input))
+                        {
+                            Console.WriteLine("\nYou must provide some input!");
+                            repeat = true;
+                        }
+                        else if (!UInt32.TryParse(input, out quantity))
+                        {
+                            Console.WriteLine("\nRead instructions!!!!");
+                            repeat = true;
+                        }
+                        else
+                        {
+                            quantity = UInt32.Parse(input);
+                            article.Quantity = (int)quantity;
+                            listOfArticles.ElementAt((int)choosenNo).Quantity -= (int)quantity;
+                            article.Price = listOfArticles.ElementAt((int)choosenNo).Price;
+                            listForBill.Add(article);
+                            proxy.AddAllArticlesToFile(listOfArticles);
+
+                            Console.Write("\nAnother article: Y / N -> ");
+                            string yn = Console.ReadLine();
+                            if (string.IsNullOrEmpty(yn))
+                            {
+                                Console.WriteLine("\nYou must provide some input!");
+                                repeat = true;
+                            }
+                            else if (yn.Equals("N") || yn.Equals("n"))
+                            {
+                                end = false;
+                            }
+                            else if (yn.Equals("Y") || yn.Equals("y"))
+                            {
+                                end = true;
+                                continue;
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nRead instructions!!!!");
+                                repeat = true;
+                            }
+                        }
+                    } while (repeat) ;
+                } while (end);
                 proxy.CreateABill(listForBill.ToArray());
-                proxy.AddAllArticlesToFile(listOfArticles);
             }
         }
     }

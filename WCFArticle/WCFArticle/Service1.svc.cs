@@ -118,10 +118,10 @@ namespace WCFArticle
                 using (StreamWriter sw = File.AppendText(FileBill))
                 {
                     sw.WriteLine(DateTime.Now);
-                    foreach (var item in list)
+                    for (int i = 0; i < list.Count; i++)
                     {
-                        sw.WriteLine("{0} - {1:N2}", item.Name, ((double)item.Quantity * item.Price));
-                        bill += (double)item.Quantity * item.Price;
+                        sw.WriteLine("{0} - {1:N2}", list[i].Name, ((double)list[i].Quantity * list[i].Price));
+                        bill += (double)list[i].Quantity * list[i].Price;
                     }
                     sw.WriteLine(bill);
                 }
